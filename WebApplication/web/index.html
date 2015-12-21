@@ -52,18 +52,17 @@ function show_content(optionsId) {
 	<div id="header"><h1>Income Prediction</h1></div>
 
 	<div id="menu">
-		<a id="home_link" href="#" class="active" onclick="show_content('home'); return false;">Home</a> &middot;
-		<a id="data_link" href="#" onclick="show_content('data'); update_data_charts(); return false;">Data</a> &middot;
-		<a id="analysis_link" href="#" onclick="show_content('analysis'); return false;">Analysis</a> 
+		<a id="home_link" href="#" class="active" onclick="show_content('home'); return false;">Overview</a> &middot;
+		<a id="data_link" href="#" onclick="show_content('data'); update_data_charts(); return false;">Data Visualization</a> &middot;
+		<a id="analysis_link" href="#" onclick="show_content('analysis'); return false;">Analytics</a> 
 	</div>
 
 	<div id="main">
 
 		<div id="home">
-			<h2>Home</h2>
+			<h2>Overview</h2>
 
 
-<h3>Overview</h3>
 
 <p>Every year, the US Census Bureau runs the American Community Survey. In this
 survey, approximately 3.5 million households are asked detailed questions about who
@@ -76,11 +75,11 @@ work, transportation, internet use, and residency. The Census is designed to be 
 
 			or marital stability. In this project we are trying to reveal a fascinating, granular snapshot into the lives of many Americans using an interactive Web Application to predict income.</p>
 
-<p>In the data visualization layer we show insights about the relation between income and education and industry. We also show a USA map with the median income of each state. In the analytical layer we explain how we created the algprithm and show its accuracy to predict income out-of-sample. </p>
+<p>In the data visualization layer we show insights about the relationship between income, education and industry through different kinds of plots. In the analytical layer we explain how we created the algorithm and show its accuracy to predict income out-of-sample. </p>
 
 <h3>Income prospects </h3>
 
-<p>Given personal information, what is my predicted entry level income? Job-seekers and employees may find this tool useful for wage negotiations, as they can know the salary they can potentially earn. Together with the income prediction, it is possible to display the costs and benefits of switching to a different industry (Ex: increase in wage), effects of education (Should I do a PhD or not) etc.</p>
+<p>Given personal information, an interesting question to ask is for example what the predicted income for an individual is. Job-seekers and employees may find this tool useful for wage negotiations, as they can base their potential salary based on this information. Together with the income prediction, it is possible to display the costs and benefits of switching to a different industry (Ex: increase in wage), effects of education (Should I do a PhD or not) etc.</p>
 
 
 			
@@ -88,40 +87,40 @@ work, transportation, internet use, and residency. The Census is designed to be 
 		
 
        <div id="data" style="display:none;">
-			<h2>Data</h2>
+			<h2>Data Visualization</h2>
 			
 		
 
 			
 
-			<img src="/home/yaroslav/Dropbox/Shared folders/BGSE/Computing Project/Map_Median_Personal_Income_By_State2.png" alt="Mountain View" style="width:700px;height:400px;" align="middle">
+			<img src="Map_Median_Personal_Income_By_State2.png" alt="Mountain View" style="width:700px;height:400px;" align="middle">
 
-<p> The map shows the wage differences between states. Dark red areas represent a high median wage, low intensity of red the contrary. The state of Wyoming has the highest red contrast. That is due to having a sparse population, some of which is employed in the highly profitable oil&gas industry that pays well in general.</p>
+<p> This map shows the wage differences between states. The darker the intensity of red the higher the median yearly income and vice versa. Interestingly, the state of Wyoming has the highest red contrast. On the one hand this is due to a distorted view given by the small population size, on the other hand the biggest employment sector in the state are the highly profitable oil & gas industries that pay well in general.</p>
 
-			<img src="/home/yaroslav/Dropbox/Shared folders/BGSE/Computing Project/presentation/Education_barplot.png" alt="Mountain View" style="width:700px;height:400px;" align="middle">
+			<img src="Education_barplot.png" alt="Mountain View" style="width:700px;height:400px;" align="middle">
 
-<p> This plot clearly shows the median wage differences between each education level group. This result is consistent with other research in the field. It is important to note that this is a one-year snapshot and higher degrees had a high cost in foregone income.</p>
+<p> This plot shows the median wage differences between each education level. This result is consistent with other research in the field. It is important to note that this is a one-year snapshot and higher degrees had a high cost in foregone income.</p>
 
-			<img src="/home/yaroslav/Dropbox/Shared folders/BGSE/Computing Project/presentation/Industry_barplot.png" alt="Mountain View" style="width:700px;height:400px;" align="middle">
+			<img src="Industry_barplot.png" alt="Mountain View" style="width:700px;height:400px;" align="middle">
 		
-<p>Above plot shows median income broken down by industry. Median income of the highest bracket(engineering) is 3 times higher than the median income in the lowest bracket(food industry).</p>
+<p>The above plot shows median income broken down by industry. The median income of the highest bracket (engineering) is 3 times higher than the median income in the lowest bracket (food industry).</p>
 
 			</div>	
 	
 
 
  		<div id="analysis" style="display:none;">
-			<h2>Analysis</h2>
+			<h2>Analytics</h2>
 		
 
-			<p>In this analytics layer we will predict the wage of an individual given our selected independent variables. We use a log-linear model to predict. This transformation is more adequate, because wages usually follow a log-normal distribution. This transformation also allows us to use linear regression. </p>
+			<p>In this analytics layer we will use a log-linear model to predict the wage of an individual given our selected independent variables. This transformation fits more adequately, because wages usually follow a log-normal distribution.  </p>
 
-			<p> We remove observations with wages smaller than $15.000 and higher than $200.000. We also removed those observations who are not in the labor force (children/retired people).</p>
+			<p>We remove observations with wages smaller than $15.000 and higher than $200.000. We also removed those observations who are not in the labor force (children/retired people).</p>
 
 
 			<p>Our final dataset consists of about 927.000 observations and 48 variables. Almost all of our variables are categorical, which means that the number of estimated coefficients of our model is much larger than the number of variables. 
 			
-			The full model with 48 variables has an adjusted R<sup>2</sup> of 0.49, which is a very accurate fit. However, since we are interested in prediction we have to run cross-validation techniques and test our model out-of-sample.</p>
+			The full model with 48 variables has an adjusted R<sup>2</sup> of 0.49, which is a very accurate fit. However, since we are interested in prediction we have to run out-of-sample techniques in order to validate our model.</p>
 
 			<h2> Accuracy </h2>
 
@@ -140,7 +139,7 @@ work, transportation, internet use, and residency. The Census is designed to be 
    			<li> RMSE: Root mean square error</li>
    			<li> MAE: Mean absolute error</li>
    			<li> MPE: Mean percentage error</li>
-   			<li>MAPE: Mean percentage error</li>	
+   			<li>MAPE: Mean absolute percentage error</li>	
 
    			</ul>
 
@@ -150,8 +149,15 @@ work, transportation, internet use, and residency. The Census is designed to be 
 
 		<h2>Variables</h2>
 		<p>
-		Almost all our variables are categorical. This means that our model creates a dummy variable for each category and includes all but one. Our intercept is 9.773. Taking the exponential of this we get $18.694. This is the predicted wage of a married man working in management in Alabama and with low level of education. 
-
+		Almost all of our variables are categorical. This means that our model creates a dummy variable for each category and includes all categories except one. The intercept value of our model is 9.773, or $18.694 on a real unit scale. This translates into a predicted wage of a person whose charecteristics are all of the omitted categories. 
+		In this case they are:
+		<ul>
+		<li>married</li>
+		<li>live in Alabama</li>
+		<li>low education</li>
+		<li>work in management</li>
+		<li>...</li> 
+		<ul>
 		</p>
 
 		<h3>Positive effects</h3>
