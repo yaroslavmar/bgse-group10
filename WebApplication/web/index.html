@@ -1,0 +1,201 @@
+<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<head>
+	<title>MyApp</title>    
+	<link rel="stylesheet" type="text/css" href="style.css" />
+</head>
+<script>
+/**
+ * Given an element, or an element ID, blank its style's display
+ * property (return it to default)
+ */
+function show(element) {
+    if (typeof(element) != "object")	{
+	element = document.getElementById(element);
+    }
+    
+    if (typeof(element) == "object") {
+	element.style.display = '';
+    }
+}
+
+/**
+ * Given an element, or an element ID, set its style's display property
+ * to 'none'
+ */
+function hide(element) {
+    if (typeof(element) != "object")	{
+	element = document.getElementById(element);
+    }
+    
+    if (typeof(element) == "object") {
+	element.style.display = 'none';
+    }
+}
+
+function show_content(optionsId) {
+	var ids = new Array('home','data','analysis');
+	show(optionsId);
+	document.getElementById(optionsId + '_link').className = 'active';
+
+	for (var i = 0; i < ids.length; i++)
+	{
+	    if (ids[i] == optionsId) continue;
+	    hide(ids[i]);
+	    document.getElementById(ids[i] + '_link').className = '';
+	}
+}
+</script>
+
+
+<body>
+	<div id="header"><h1>Income Prediction</h1></div>
+
+	<div id="menu">
+		<a id="home_link" href="#" class="active" onclick="show_content('home'); return false;">Home</a> &middot;
+		<a id="data_link" href="#" onclick="show_content('data'); update_data_charts(); return false;">Data</a> &middot;
+		<a id="analysis_link" href="#" onclick="show_content('analysis'); return false;">Analysis</a> 
+	</div>
+
+	<div id="main">
+
+		<div id="home">
+			<h2>Home</h2>
+
+
+<h3>Overview</h3>
+
+<p>Every year, the US Census Bureau runs the American Community Survey. In this
+survey, approximately 3.5 million households are asked detailed questions about who
+they are and how they live. Many topics are covered, including ancestry, education,
+work, transportation, internet use, and residency. The Census is designed to be very
+
+			detailed and overly comprehensive at times, however, it is this level of granularity that will prove useful for
+
+			us to make new discoveries and better predictions on key issues such as the income levels among peer groups
+
+			or marital stability. In this project we are trying to reveal a fascinating, granular snapshot into the lives of many Americans using an interactive Web Application to predict income.</p>
+
+<p>In the data visualization layer we show insights about the relation between income and education and industry. We also show a USA map with the median income of each state. In the analytical layer we explain how we created the algprithm and show its accuracy to predict income out-of-sample. </p>
+
+<h3>Income prospects </h3>
+
+<p>Given personal information, what is my predicted entry level income? Job-seekers and employees may find this tool useful for wage negotiations, as they can know the salary they can potentially earn. Together with the income prediction, it is possible to display the costs and benefits of switching to a different industry (Ex: increase in wage), effects of education (Should I do a PhD or not) etc.</p>
+
+
+			
+			</div>	
+		
+
+       <div id="data" style="display:none;">
+			<h2>Data</h2>
+			
+		
+
+			
+
+			<img src="/home/yaroslav/Dropbox/Shared folders/BGSE/Computing Project/Map_Median_Personal_Income_By_State2.png" alt="Mountain View" style="width:700px;height:400px;" align="middle">
+
+<p> The map shows the wage differences between states. Dark red areas represent a high median wage, low intensity of red the contrary. The state of Wyoming has the highest red contrast. That is due to having a sparse population, some of which is employed in the highly profitable oil&gas industry that pays well in general.</p>
+
+			<img src="/home/yaroslav/Dropbox/Shared folders/BGSE/Computing Project/presentation/Education_barplot.png" alt="Mountain View" style="width:700px;height:400px;" align="middle">
+
+<p> This plot clearly shows the median wage differences between each education level group. This result is consistent with other research in the field. It is important to note that this is a one-year snapshot and higher degrees had a high cost in foregone income.</p>
+
+			<img src="/home/yaroslav/Dropbox/Shared folders/BGSE/Computing Project/presentation/Industry_barplot.png" alt="Mountain View" style="width:700px;height:400px;" align="middle">
+		
+<p>Above plot shows median income broken down by industry. Median income of the highest bracket(engineering) is 3 times higher than the median income in the lowest bracket(food industry).</p>
+
+			</div>	
+	
+
+
+ 		<div id="analysis" style="display:none;">
+			<h2>Analysis</h2>
+		
+
+			<p>In this analytics layer we will predict the wage of an individual given our selected independent variables. We use a log-linear model to predict. This transformation is more adequate, because wages usually follow a log-normal distribution. This transformation also allows us to use linear regression. </p>
+
+			<p> We remove observations with wages smaller than $15.000 and higher than $200.000. We also removed those observations who are not in the labor force (children/retired people).</p>
+
+
+			<p>Our final dataset consists of about 927.000 observations and 48 variables. Almost all of our variables are categorical, which means that the number of estimated coefficients of our model is much larger than the number of variables. 
+			
+			The full model with 48 variables has an adjusted R<sup>2</sup> of 0.49, which is a very accurate fit. However, since we are interested in prediction we have to run cross-validation techniques and test our model out-of-sample.</p>
+
+			<h2> Accuracy </h2>
+
+			<p>In order to compute the accuracy of our predictions we estimate our model with a training dataset (80% of observations) and compute the predicted values for the training dataset (20% of observations). </p>
+
+			<p>  The following table shows some accuracy metrics of our predictions of the testing dataset.</p>
+
+			<center><table border=1>
+<tr> <th>  </th> <th> ME </th> <th> RMSE </th> <th> MAE </th> <th> MPE </th> <th> MAPE </th>  </tr>
+  <tr> <td align="right"> Test set </td> <td align="right"> -$4.220 </td> <td align="right"> $24.411 </td> <td align="right"> $16.595 </td> <td align="right"> -8.25% </td> <td align="right"> 33.68% </td> </tr>
+   </table></center>
+
+
+   			<ul>
+   			<li> ME: Mean error</li>
+   			<li> RMSE: Root mean square error</li>
+   			<li> MAE: Mean absolute error</li>
+   			<li> MPE: Mean percentage error</li>
+   			<li>MAPE: Mean percentage error</li>	
+
+   			</ul>
+
+			 <p> All metrics show that our model predicts income  well. As the MAPE suggests, on average our predictions are just 12% above or below the real wage. </p>  
+						
+	
+
+		<h2>Variables</h2>
+		<p>
+		Almost all our variables are categorical. This means that our model creates a dummy variable for each category and includes all but one. Our intercept is 9.773. Taking the exponential of this we get $18.694. This is the predicted wage of a married man working in management in Alabama and with low level of education. 
+
+		</p>
+
+		<h3>Positive effects</h3>
+
+		<ul>
+		<li> +61.4% If you have a master degree </li>
+		<li> +52% If you have a professional degree beyond bachelor's degree </li>
+		<li> +43% If you have a bachelor's degree</li>
+		</ul>	
+
+
+		<h3>Negative effects</h3>
+
+		<ul>
+		<li> -47% If you work in construction </li>
+		<li> -62% If you work in health care. This would include  jobs like dental assistants, message therapists or home health aides.</li>
+  		<li> -30% if you work in entertainment</li>
+ 
+
+		</ul>				
+
+		<p> In this project we considered many different vriables. However, there are two thataffect income the most: industry and level of education </p>
+
+			</div>				
+			
+
+	</div>
+
+
+
+</div>
+
+
+	
+
+	<div id="footer">Project team: Domagoj, Yaroslav, Uwe </div>
+
+
+
+</body>
+
+
+
+
+
+
+</html>
